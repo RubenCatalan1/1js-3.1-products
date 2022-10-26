@@ -102,6 +102,7 @@ class Store {
         }
        
         this.getCategoryById(Number(object.category));
+        
         let nextId = this.nextProductId();
         
         let newProduct = new Product(nextId, object.name, object.category, object.price, object.units);
@@ -141,6 +142,35 @@ class Store {
     
     }
 
+    editProduct (object) {
+        
+        if(!object.name) {
+            throw "Debes pasar un atributo name";
+        }
+
+        if(!object.category) {
+            throw "Category vacia o no existe en el almacen";
+        }
+
+        if(!object.price || object.price < 0 || isNaN(object.price)) {
+            throw "Debes añadir un precio válido";
+        }
+        if(object.units) {
+            if(object.units < 0 || !Number.isInteger(Number(object.units))) {
+                throw "El atributo units debe ser un número entero positivo";
+            } 
+        }
+        
+        let product = this.getProductById(object.id);
+        product.name = object.name;
+        product.price = object.price;
+        product.units = object.units;
+        product.category = object.category;
+
+        return product;
+
+    }
+
     totalImport () {
 
         return this.products.reduce((total, product) => total += product.productImport(), 0);
@@ -160,6 +190,11 @@ class Store {
 
         return this.products.filter(product => product.units < units);
       
+    }
+
+    productNameExist (name) {
+    
+        return this.products.some(product => product.getName() === name);
     }
 
     toString() {
