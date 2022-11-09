@@ -10,11 +10,11 @@ class Controller {
         this.store = new Store(1, 'Almacen ACME');
         this.view = new View();
         
-    }
+    } 
 
-    init() {
+    async init() {
 
-        this.store.loadData();
+        await this.store.loadData();
         this.store.products.forEach(product => this.view.renderProduct(product));
         this.store.categories.forEach(category => this.view.setCategoryList(category));
         this.view.setTotalImport(this.store.totalImport());
@@ -51,7 +51,7 @@ class Controller {
 
     }
 
-    addProductToStore (payload) {
+    async addProductToStore (payload) {
 
 
         let form = document.getElementById('new-prod');
@@ -60,7 +60,7 @@ class Controller {
             try {
                 let newProd;
                
-                newProd = this.store.addProduct(payload);
+                newProd = await this.store.addProduct(payload);
                 
                 this.view.renderProduct(newProd);
                 
@@ -76,9 +76,9 @@ class Controller {
         }      
     }
 
-    editProductFromStore (payload) {
+    async editProductFromStore (payload) {
 
-        let product = this.store.editProduct(payload);
+        let product = await this.store.editProduct(payload);
         this.view.editProductInStore(product);
         this.view.mostrarVista("almacen");
         this.view.setTotalImport(this.store.totalImport());
@@ -86,28 +86,30 @@ class Controller {
 
     }
 
-    upUnitsProductFromStore (id) {
+    async upUnitsProductFromStore (id) {
 
         let product = this.store.getProductById(id);
         product.units++;
+        product = await this.store.editProduct(product);
         this.view.editProductInStore(product);
         this.view.setTotalImport(this.store.totalImport());
     }
 
-    downUnitsProductFromStore (id) {
+    async downUnitsProductFromStore (id) {
 
         let product = this.store.getProductById(id);
         if(product.units > 0) {
             product.units--;
         }
+        product = await this.store.editProduct(product);
         this.view.editProductInStore(product);
         this.view.setTotalImport(this.store.totalImport());
     }
 
-    addCategoryToStore(payload) {
+    async addCategoryToStore(payload) {
 
         try {
-            const newCat = this.store.addCategory(payload.name, payload.description);
+            const newCat = await this.store.addCategory(payload.name, payload.description);
             this.view.setCategoryList(newCat);
             this.view.mostrarVista("categorias-table");
         } catch (err) {
@@ -116,10 +118,10 @@ class Controller {
 
     }
 
-    deleteProductFromStore(productId) {
+    async deleteProductFromStore(productId) {
 
         try {
-            const prodDel = this.store.delProduct(productId);
+            const prodDel = await this.store.delProduct(productId);
             this.view.removeProductFromTable(prodDel);
         } catch (err) {
             this.view.renderMessage(err);
@@ -127,10 +129,10 @@ class Controller {
 
     }
 
-    deleteCategoryFromStore(categoryId) {
+    async deleteCategoryFromStore(categoryId) {
 
         try {
-            const catDel = this.store.delCategory(categoryId);
+            const catDel = await this.store.delCategory(categoryId);
             this.view.removeCategoryFromTable(catDel);
         } catch (err) {
             this.view.renderMessage(err);
@@ -191,7 +193,7 @@ class Controller {
     }
 
     addListenerToFormSubmitButton () {
-        window.addEventListener('load', () => {
+        
 
             // función manejadora del formulario 'new-prod'
             document.getElementById('new-prod').addEventListener('submit', (event) => {
@@ -231,12 +233,12 @@ class Controller {
           
               // Aquí el código para obtener los datos del formulario
               const name = document.getElementById('newcat-name').value
-              const price = document.getElementById('newcat-description').value 
+              const description = document.getElementById('newcat-description').value 
               // ...
               
               // Aquí llamamos a la función del controlador que añade productos (addProductToStore)
               // pasándole como parámetro esos datos
-              myController.addCategoryToStore({name, price})   
+              this.addCategoryToStore({name, description})   
               // Sintaxis de ES2015 que equivale a 
               //
               // myController.addProductToStore(
@@ -270,7 +272,7 @@ class Controller {
             document.getElementById('newprod-price').addEventListener('blur',this.validationPrice.bind(this));
 
           
-          })
+         
     }
 
     validateForm() {

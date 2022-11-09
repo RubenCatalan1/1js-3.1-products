@@ -78,13 +78,13 @@ class View {
     }
 
     removeProductFromTable (product) {
-        let $id = product.id + "-id-prod";
-        document.getElementById($id).remove();
+        let id = product.id + "-id-prod";
+        document.getElementById(id).remove();
     }
 
     removeCategoryFromTable (category) {
-        let $id = category.id + "-id-cat";
-        document.getElementById($id).remove();
+        let id = category.id + "-id-cat";
+        document.getElementById(id).remove();
     }
 
     fillProductTable (product) {

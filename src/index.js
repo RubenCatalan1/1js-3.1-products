@@ -4,6 +4,8 @@
 const Controller = require('./controller/controller.class')
 
 const myController = new Controller()
-myController.init()
+window.addEventListener('load', () => {
+    myController.init()
+});
 
 
