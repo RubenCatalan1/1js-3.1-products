@@ -1,14 +1,62 @@
 {
-    "categories": [
-        {
-            "id":1,
-            "name":"Mobiliario",
-            "description":"Muebles de oficina"
-        }
-    ],
-    "products": [
-        {"id":2,"name":"Silla de ordenador","category":1,"price":145.95,"units":4},
-        {"id":3,"name":"Mesa de impresora","category":1,"price":45.95,"units":0},
-        {"id":1,"name":"Mesa de ordenador","category":1,"price":125.95,"units":3}
-    ]
+  "categories": [
+    {
+      "id": 1,
+      "name": "Mobiliario",
+      "description": "Muebles de oficina"
+    },
+    {
+      "id": 2,
+      "name": "aaaaaaaaaa",
+      "description": "No hay descripción"
+    },
+    {
+      "id": 3,
+      "name": "aaaaaaaaaab",
+      "description": "No hay descripción"
+    },
+    {
+      "id": 4,
+      "name": "aaaaaaaaaabs",
+      "description": "No hay descripción"
+    },
+    {
+      "id": 5,
+      "name": "aaaaaaaaaabssss",
+      "description": "No hay descripción"
+    },
+    {
+      "id": 6,
+      "name": "1",
+      "description": "asd"
+    },
+    {
+      "id": 7,
+      "name": "adrian",
+      "description": ""
+    }
+  ],
+  "products": [
+    {
+      "id": 2,
+      "name": "Silla de ordenador1",
+      "category": "1",
+      "price": "145.95",
+      "units": "4"
+    },
+    {
+      "id": 3,
+      "name": "Mesa de impresora",
+      "category": "1",
+      "price": "45.95",
+      "units": "1"
+    },
+    {
+      "id": 1,
+      "name": "Mesa de ordenador",
+      "category": 1,
+      "price": 125.95,
+      "units": 0
+    }
+  ]
 }
